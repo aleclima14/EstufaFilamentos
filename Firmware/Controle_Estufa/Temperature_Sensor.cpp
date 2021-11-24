@@ -1,4 +1,7 @@
 #include "Temperature_Sensor.h"
+#include <DHT.h>
+
+
 
 
 
@@ -6,6 +9,21 @@ int setTemperatura = 0;
 int alvo = 90;
 int umidade = 58;
 
+float TempSensor;
+float UmidSensor;
+
+DHT dht(DHT_PIN, DHT_TIPO);
+
+void IniciaLeituraTemperatura()
+{
+  dht.begin();
+}
+
+void GetTemperatura()
+{
+  TempSensor = dht.readTemperature();
+  UmidSensor = dht.readHumidity ();
+}
 void SetTemperatura ()
 {
   switch (TeclaPressionada ())

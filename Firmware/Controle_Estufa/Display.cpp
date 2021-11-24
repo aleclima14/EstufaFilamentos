@@ -10,6 +10,9 @@ extern int setTemperatura;
 extern int alvo;
 extern int umidade;
 
+extern float TempSensor;
+extern float UmidSensor;
+
 int iconePosicao = 0;
 unsigned long timer1 = 0;
 
@@ -91,10 +94,10 @@ void TelaInicial ()
   //while (telaInicial)
   //{
   lcd.setCursor (0, 0);
-  lcd.print (String ("Temp.: ") + String (alvo) + String (" / ") + String (setTemperatura) + char (223) + String ("C  ") );
+  lcd.print (String ("Temp.: ") + String (TempSensor,0) + String (" / ") + String (setTemperatura) + char (223) + String ("C  ") );
 
   lcd.setCursor (0, 1);
-  lcd.print (String ("Umidade: ")  + String (umidade) + String ("%"));
+  lcd.print (String ("Umidade: ")  + String (UmidSensor,0) + String ("%"));
 
   if (TeclaPressionada() == Select)
   {

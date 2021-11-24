@@ -16,6 +16,8 @@ void setup()
 
   IniciaDisplay ();
 
+  IniciaLeituraTemperatura();
+
   Menu (telaInicial);
   //Menu (telaAquecimento);
 
@@ -23,7 +25,12 @@ void setup()
 
 void loop()
 {
+  GetTemperatura();
+  Menu (telaInicial);
+  
   //SelectIcone(3);
+  
+  /*
   if (millis() - timer > 100)
   {
     if (TeclaPressionada() == Select)
@@ -32,4 +39,5 @@ void loop()
     }
     timer = millis();
   }
+  */
 }

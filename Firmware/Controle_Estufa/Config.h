@@ -3,3 +3,5 @@
 
 #define SET_TEMPERATURA_MAX 80
 #define SET_TEMPERATURA_MIN 40
+
+#define DHT_TIPO DHT22
