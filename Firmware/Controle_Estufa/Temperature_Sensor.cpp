@@ -1,10 +1,6 @@
 #include "Temperature_Sensor.h"
 #include <DHT.h>
 
-
-
-
-
 int setTemperatura = 0;
 int alvo = 90;
 int umidade = 58;
@@ -14,8 +10,10 @@ float UmidSensor;
 
 DHT dht(DHT_PIN, DHT_TIPO);
 
+
 void IniciaLeituraTemperatura()
 {
+  analogReference(INTERNAL);
   dht.begin();
 }
 
