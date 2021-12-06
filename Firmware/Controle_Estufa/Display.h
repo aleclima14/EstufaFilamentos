@@ -3,8 +3,6 @@
 #include "Pin_Map.h"
 
 
-
-
 void IniciaDisplay (void);
 
 void LimpaTela(void);

@@ -6,29 +6,32 @@
 #include "Menu.h"
 #include "Teclado.h"
 
-
+/*
 int Menu (int mudaMenu)
 {
 
   //int *mudaMenu;
   switch (mudaMenu)
   {
-    case telaInicial:
+    case enTelaInicial:
       TelaInicial ();
       break;
 
-    case telaMenu:
-      break;
-
-    case telaAquecimento:
+    case enTelaMenu:
       TelaAquecimento ();
       break;
 
-    case telaTemporizador:
+    case enTelaAquecimento:
+      //TelaAquecimento ();
       break;
 
-    case telaConfiguracoes:
+    case enTelaTemporizador:
+      break;
+
+    case enTelaConfiguracoes:
       break;
 
   }
 }
+
+*/

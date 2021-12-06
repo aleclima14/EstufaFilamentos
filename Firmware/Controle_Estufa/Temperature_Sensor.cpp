@@ -10,18 +10,20 @@ float UmidSensor;
 
 DHT dht(DHT_PIN, DHT_TIPO);
 
-
+/* Inicia a leitura e referencia o ADC com a tensao interna (1,1 para o MCU usado) */
 void IniciaLeituraTemperatura()
 {
   analogReference(INTERNAL);
   dht.begin();
 }
 
+/* Recebe do sensor as temperaturas lidas */
 void GetTemperatura()
 {
   TempSensor = dht.readTemperature();
   UmidSensor = dht.readHumidity ();
 }
+
 void SetTemperatura ()
 {
   switch (TeclaPressionada ())

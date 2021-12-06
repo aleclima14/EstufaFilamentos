@@ -10,15 +10,16 @@
 #include "Teclado.h"
 
 
+/*
 enum TelaMenu
 {
-  telaInicial,
-  telaMenu,
-  telaAquecimento,
-  telaTemporizador,
-  telaConfiguracoes
+  enTelaInicial,
+  enTelaMenu,
+  enTelaAquecimento,
+  enTelaTemporizador,
+  enTelaConfiguracoes
 };
 
 int Menu (int mudaMenu); 
-
+*/
 #endif

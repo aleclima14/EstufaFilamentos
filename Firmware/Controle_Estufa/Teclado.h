@@ -12,6 +12,7 @@ enum Teclas
   Left, 
   Select,
   Right,
+  Return,
   nulo
 };
 

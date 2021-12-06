@@ -16,9 +16,12 @@ extern float UmidSensor;
 int iconePosicao = 0;
 unsigned long timer1 = 0;
 
+void (*NavegaTela)();
+
 void IniciaDisplay ()
 {
   lcd.begin (16, 4);
+  NavegaTela = TelaInicial;
 }
 
 void LimpaTela()
@@ -30,8 +33,7 @@ void LimpaTela()
   Funcao responsavel por mostrar o icone ">" na primeira coluna do display
   Recebe como referencia a quantidade de opcoes no menu
   Por exemplo
-  >Voltar
-   Aquecer
+  >Aquecer
    Desligar
   Aqui temos 3 menus, entao basta usar SelectIcone (3).
 */
@@ -58,9 +60,6 @@ int SelectIcone(int maxMenu)
       lcd.setCursor (0, iconePosicao);
       lcd.print (">");
 
-      //lcd.setCursor (0, 4);
-      //lcd.print ("left");
-
       return iconePosicao;
       break;
 
@@ -77,9 +76,6 @@ int SelectIcone(int maxMenu)
       lcd.setCursor (0, iconePosicao);
       lcd.print (">");
 
-      // lcd.setCursor (0, 4);
-      //lcd.print ("right");
-
       return iconePosicao;
       break;
 
@@ -90,51 +86,39 @@ int SelectIcone(int maxMenu)
 
 void TelaInicial ()
 {
-  //lcd.clear();
-  //while (telaInicial)
-  //{
   lcd.setCursor (0, 0);
-  lcd.print (String ("Temp.: ") + String (TempSensor,0) + String (" / ") + String (setTemperatura) + char (223) + String ("C  ") );
+  lcd.print (String ("Temp.: ") + String (TempSensor, 0) + String (" / ") + String (setTemperatura) + char (223) + String ("C  ") );
 
   lcd.setCursor (0, 1);
-  lcd.print (String ("Umidade: ")  + String (UmidSensor,0) + String ("%"));
+  lcd.print (String ("Umidade: ")  + String (UmidSensor, 0) + String ("%"));
 
   if (TeclaPressionada() == Select)
   {
-    Menu (telaAquecimento);
+    LimpaTela();
+    NavegaTela = TelaAquecimento;
   }
-
-  //}
 }
 
 void TelaAquecimento ()
 {
-  LimpaTela();
-
-  while (telaAquecimento)
+  if (millis() - timer1 > 10 )
   {
-    if (millis() - timer1 > 10 )
+    /*Informa a funcao a quantidade de linhas o menu tem (no caso 2)*/
+    SelectIcone(2);
+
+    lcd.setCursor (1, 0);
+    lcd.print ("Aquecer");
+
+    lcd.setCursor (1, 1);
+    lcd.print ("Desligar");
+
+    if (TeclaPressionada() == Select && iconePosicao == 1)
     {
-      //Informa a funcao a quantidade de linhas o menu tem (no caso 3)
-      SelectIcone(3);
-
-      lcd.setCursor (1, 0);
-      lcd.print ("Voltar");
-
-      lcd.setCursor (1, 1);
-      lcd.print ("Aquecer");
-
-      lcd.setCursor (1, 2);
-      lcd.print ("Desligar");
-
-
-      if (TeclaPressionada() == Select && iconePosicao == 0)
-      {
-        LimpaTela();
-        Menu (telaInicial);
-        break;
-      }
-      timer1 = millis();
+      iconePosicao = 0;
+      LimpaTela();
+      NavegaTela = TelaInicial;
     }
+
+    timer1 = millis();
   }
 }
