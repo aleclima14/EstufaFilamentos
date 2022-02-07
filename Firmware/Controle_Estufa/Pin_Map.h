@@ -16,17 +16,16 @@
 #define d6 3
 #define d7 2 
 
-/* Teclado direcional */
+/*Navigation Keypad*/
 #define LEFT_PIN    6
 #define SELECT_PIN  7
 #define RIGHT_PIN   8
-//#define RETURN_PIN 
 
-/* DHT sensor de temperatura */
+/* DHT Temperature Sensor*/
 #define DHT_PIN 10
 
-/* Controle de aquecimento */
+/*Heating Control Pin */
 #define CONTROL_PIN 9
 
-/* Aviso sonoro */
+/*Warning Chirp*/
 //#define BUZZER_PIN 11

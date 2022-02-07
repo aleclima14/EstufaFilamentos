@@ -6,7 +6,6 @@
 
 void IniciaTeclado ();
 int TeclaPressionada ();
-void LeTeclado();
 
 enum Tecla
 {
@@ -14,6 +13,5 @@ enum Tecla
   Select = 0x02,
   Right  = 0x03
 };
-
 
 #endif

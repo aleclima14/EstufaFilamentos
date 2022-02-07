@@ -1,8 +1,14 @@
+/*
+ * 
+ */
+
+/****INCLUDES****/
 #include "Arduino.h"
 #include "Teclado.h"
 #include "Pin_Map.h"
 #include "Config.h"
 
+/****GLOBAL VARIABLES****/
 uint8_t botaoLeft   = 0;
 uint8_t botaoSelect = 0;
 uint8_t botaoRight  = 0;
@@ -15,22 +21,24 @@ unsigned long debounceLeft    = 0;
 unsigned long debounceSelect  = 0;
 unsigned long debounceRight   = 0;
 
+
+/*Keypad Init*/
 void IniciaTeclado ()
 {
   pinMode (LEFT_PIN, INPUT_PULLUP);
   pinMode (SELECT_PIN, INPUT_PULLUP);
   pinMode (RIGHT_PIN, INPUT_PULLUP);
-  //pinMode(RETURN_PIN, INPUT_PULLUP);
 }
 
+/*Key Pressed Function*/
 int TeclaPressionada ()
 {
-  //Faz a leitura dos pinos
+  //Read pins
   botaoLeft   = digitalRead (LEFT_PIN);
   botaoRight  = digitalRead (RIGHT_PIN);
   botaoSelect = digitalRead (SELECT_PIN);
 
-  //Botao Left
+  //Left Button
   if (!botaoLeft)
   {
     if ((millis() - debounceLeft) > DEBOUNCE)
@@ -45,7 +53,7 @@ int TeclaPressionada ()
     }
   }
   
-  //Botao Right
+  //Right Button
   if (!botaoRight)
   {
     if ((millis() - debounceRight) > DEBOUNCE)
@@ -60,7 +68,7 @@ int TeclaPressionada ()
     }
   }
 
-  //Botao Select
+  //Select Button
   if (!botaoSelect)
   {
     if ((millis() - debounceSelect) > 300)

@@ -1,34 +1,42 @@
+/*
+ * 
+ */
+
+
+/****INCLUDES****/
 #include "Display.h"
 #include "Temperature_Sensor.h"
 #include "Teclado.h"
 
 LiquidCrystal lcd (rs, en, d4, d5, d6, d7);
 
-
+/****GLOBAL VARIABLES****/
 extern int setTemperature;
 extern int targetTemp;
 extern int humidity;
-
 extern float TemperatureSensor;
 extern float HumiditySensor;
 
 uint8_t iconePosicao = 0;
-unsigned long timer1 = 0;
-unsigned long timer2 = 0;
+uint8_t key;
 
+/*Interface Navigation Function*/
 void (*NavegaTela)();
 
+/*Display Init Function*/
 void IniciaDisplay ()
 {
   lcd.begin (16, 4);
   NavegaTela = TelaInicial;
 }
 
+/*Clear Display Function*/
 void LimpaTela()
 {
   lcd.clear();
 }
 
+/*Main Screen Function*/
 void TelaInicial ()
 {
   lcd.setCursor (0, 0);
@@ -44,10 +52,9 @@ void TelaInicial ()
   }
 }
 
-void TelaAquecimento ()
+/*Navigation Menu Function*/
+void NavigationMenu (uint8_t maxMenu)
 {
-  uint8_t key;
-  uint8_t maxMenu = 3; /*Informa a funcao a quantidade de linhas o menu tem (no caso 3)*/
   key = TeclaPressionada();
 
   if (iconePosicao == 0)
@@ -85,6 +92,12 @@ void TelaAquecimento ()
     lcd.setCursor (0, iconePosicao);
     lcd.print (">");
   }
+}
+
+/*Heating Screen Function*/
+void TelaAquecimento ()
+{
+  NavigationMenu (3);
 
   lcd.setCursor (1, 0);
   lcd.print ("Voltar");
@@ -102,6 +115,7 @@ void TelaAquecimento ()
     LimpaTela();
     NavegaTela = TelaInicial;
   }
+
   //Aquecer
   if (key == Select && iconePosicao == 1)
   {
@@ -120,48 +134,10 @@ void TelaAquecimento ()
   }
 }
 
-
+/*Pre-Sets Heating Function*/
 void TelaAquecer ()
 {
-  uint8_t key;
-  uint8_t maxMenu = 4; /*Informa a funcao a quantidade de linhas o menu tem (no caso 4)*/
-  key = TeclaPressionada();
-
-  if (iconePosicao == 0)
-  {
-    lcd.setCursor (0, 0);
-    lcd.print (">");
-  }
-
-  if (key == Left)
-  {
-    if (iconePosicao > 0)
-    {
-      iconePosicao --;
-    }
-    //Apaga a seta na primeira posicao
-    lcd.setCursor (0, iconePosicao + 1);
-    lcd.print (" ");
-
-    //Mostra a seta conforme a posicao definida
-    lcd.setCursor (0, iconePosicao);
-    lcd.print (">");
-  }
-
-  if (key == Right)
-  {
-    if (iconePosicao < maxMenu - 1)
-    {
-      iconePosicao ++;
-    }
-    //Apaga a seta na primeira posicao
-    lcd.setCursor (0, iconePosicao - 1);
-    lcd.print (" ");
-
-    //Mostra a seta conforme a posicao definida
-    lcd.setCursor (0, iconePosicao);
-    lcd.print (">");
-  }
+  NavigationMenu (4);
 
   lcd.setCursor (1, 0);
   lcd.print ("Voltar");
@@ -188,7 +164,7 @@ void TelaAquecer ()
   {
     iconePosicao = 0;
     LimpaTela();
-    setTemperature = 80;
+    setTemperature = PREHEAT_ABS;
     NavegaTela = TelaInicial;
   }
 
@@ -197,7 +173,7 @@ void TelaAquecer ()
   {
     iconePosicao = 0;
     LimpaTela();
-    setTemperature = 50;
+    setTemperature = PREHEAT_PLA;
     NavegaTela = TelaInicial;
   }
 
@@ -206,10 +182,10 @@ void TelaAquecer ()
   {
     iconePosicao = 0;
     LimpaTela();
-    setTemperature = 65;
+    setTemperature = PREHEAT_PETG;
     NavegaTela = TelaInicial;
   }
 
   /*TODO: Para a tela de custom, criar uma copia da tela inicial para poder modificar o valor do setTemperature,
-  quando definir valor, pressionar Select e mudar para a tela inicial.*/
+    quando definir valor, pressionar Select e mudar para a tela inicial.*/
 }

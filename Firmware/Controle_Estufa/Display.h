@@ -3,16 +3,14 @@
 #include "Pin_Map.h"
 
 
-void IniciaDisplay (void);
+void IniciaDisplay    (void);
 
-void LimpaTela(void);
+void LimpaTela        (void);
 
-void TelaInicial (void);
+void TelaInicial      (void);
 
-int SelectIcone(int maxMenu);
+void NavigationMenu   (void);
 
-void TelaAquecimento (void);
+void TelaAquecimento  (void);
 
-void TelaAquecer (void);
-
-void TeclaTeste ();
+void TelaAquecer      (void);

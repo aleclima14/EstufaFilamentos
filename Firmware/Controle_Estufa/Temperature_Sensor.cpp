@@ -1,6 +1,12 @@
+/*
+ * 
+ */
+
+/****INCLUDES****/
 #include "Temperature_Sensor.h"
 #include <DHT.h>
 
+/****GLOBAL VARIABLES****/
 int setTemperature = 0;
 int targetTemp = 90;
 int humidity = 58;
@@ -8,16 +14,16 @@ int humidity = 58;
 float TemperatureSensor;
 float HumiditySensor;
 
-DHT dht(DHT_PIN, DHT_TIPO);
+DHT dht(DHT_PIN, DHT_TYPE);
 
-/* Inicia a leitura e referencia o ADC com a tensao interna (1,1 para o MCU usado) */
+/*Temperature Sensor Init with internal ADC reference (1,1 V for this MCU)*/
 void InitTemperature()
 {
   analogReference(INTERNAL);
   dht.begin();
 }
 
-/* Recebe do sensor as temperaturas lidas */
+/*Get sensor data*/
 void GetTemperature()
 {
   TemperatureSensor = dht.readTemperature();
