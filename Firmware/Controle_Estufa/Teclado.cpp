@@ -2,23 +2,18 @@
 #include "Teclado.h"
 #include "Pin_Map.h"
 #include "Config.h"
-#include "Menu.h"
 
-int botaoLeft   = 0;
-int botaoSelect = 0;
-int botaoRight  = 0;
-int botaoReturn = 0;
+uint8_t botaoLeft   = 0;
+uint8_t botaoSelect = 0;
+uint8_t botaoRight  = 0;
 
-int flagLeft    = 0;
-int flagSelect  = 0;
-int flagRight   = 0;
-int flagReturn  = 0;
+uint8_t flagLeft    = 0;
+uint8_t flagSelect  = 0;
+uint8_t flagRight   = 0;
 
-unsigned long debounceGeral   = 0;
 unsigned long debounceLeft    = 0;
 unsigned long debounceSelect  = 0;
 unsigned long debounceRight   = 0;
-unsigned long debounceReturn  =0;
 
 void IniciaTeclado ()
 {
@@ -30,129 +25,55 @@ void IniciaTeclado ()
 
 int TeclaPressionada ()
 {
-  /* Botao LEFT */
-  if ((millis() - debounceLeft) > DEBOUNCE)
+  //Faz a leitura dos pinos
+  botaoLeft   = digitalRead (LEFT_PIN);
+  botaoRight  = digitalRead (RIGHT_PIN);
+  botaoSelect = digitalRead (SELECT_PIN);
+
+  //Botao Left
+  if (!botaoLeft)
   {
-    botaoLeft = digitalRead (LEFT_PIN);
-    if (botaoLeft == LOW)
+    if ((millis() - debounceLeft) > DEBOUNCE)
     {
-      if (flagLeft == 0)
+      debounceLeft = millis();
+      flagLeft = 0x01;
+      if (!botaoLeft && (flagLeft == 0x01))
       {
-        flagLeft = 1;
+        flagLeft = 0x00;
         return Left;
       }
-      else
-      {
-        flagLeft = 0;
-      }
     }
-    debounceLeft = millis();
   }
-
-  /* Botao RIGH */
-  if ((millis() - debounceRight) > DEBOUNCE)
+  
+  //Botao Right
+  if (!botaoRight)
   {
-    botaoRight = digitalRead (RIGHT_PIN);
-    if (botaoRight == LOW)
+    if ((millis() - debounceRight) > DEBOUNCE)
     {
-      if (flagRight == 0)
+      debounceRight = millis();
+      flagRight = 0x01;
+      if (!botaoRight && (flagRight == 0x01))
       {
-        flagRight = 1;
+        flagRight = 0x00;
         return Right;
       }
-      else
-      {
-        flagRight = 0;
-      }
     }
-    debounceRight = millis();
   }
 
-
-  /* Botao SELECT */
-  botaoSelect = digitalRead (SELECT_PIN);
-  if (botaoSelect == LOW && flagSelect == 0)
+  //Botao Select
+  if (!botaoSelect)
   {
     if ((millis() - debounceSelect) > 300)
     {
-      flagSelect = 1;
       debounceSelect = millis();
-      return Select;
-    }
-  }
-  else
-  {
-    flagSelect = 0;
-  }
-
-
-/* Botao RETURN */
-/*
-  if ((millis() - debounceReturn) > DEBOUNCE)
-  {
-    botaoReturn = digitalRead (RETURN_PIN);
-    if (botaoReturn == LOW)
-    {
-      if (flagReturn == 0)
+      flagSelect = 0x01;
+      if (!botaoSelect && (flagSelect == 0x01))
       {
-        flagReturn = 1;
-        return Left;
-      }
-      else
-      {
-        flagReturn = 0;
-      }
-    }
-    debounceReturn = millis();
-  }
-*/
-
-  return nulo;
-}
-
-
-/*
-  int TeclaPressionada ()
-  {
-  if ((millis() - debounceGeral) > 50)
-  {
-    //Botao LEFT
-    botaoLeft = digitalRead (LEFT_PIN);
-    if (botaoLeft == LOW && !botaoLeft)
-    {
-      if ((millis() - debounceLeft) > DEBOUNCE)
-      {
-        debounceLeft = millis();
-        flagLeft = 0;
-        return Left;
-      }
-    }
-
-    //Botao SELECT
-    botaoSelect = digitalRead (SELECT_PIN);
-    if (botaoSelect == LOW && !botaoSelect)
-    {
-      if ((millis() - debounceSelect) > DEBOUNCE)
-      {
-        debounceSelect = millis();
-        flagSelect = 0;
+        flagSelect = 0x00;
         return Select;
       }
     }
-
-    //Botao RIGHT
-    botaoRight = digitalRead (RIGHT_PIN);
-    if (botaoRight == LOW && !botaoRight)
-    {
-      if ((millis() - debounceRight) > DEBOUNCE)
-      {
-        debounceRight = millis();
-        flagRight = 0;
-        return Right;
-      }
-    }
-    return nulo;
-  }
   }
 
-*/
+  return 0x00;
+}

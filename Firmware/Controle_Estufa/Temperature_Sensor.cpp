@@ -1,41 +1,42 @@
 #include "Temperature_Sensor.h"
 #include <DHT.h>
 
-int setTemperatura = 0;
-int alvo = 90;
-int umidade = 58;
+int setTemperature = 0;
+int targetTemp = 90;
+int humidity = 58;
 
-float TempSensor;
-float UmidSensor;
+float TemperatureSensor;
+float HumiditySensor;
 
 DHT dht(DHT_PIN, DHT_TIPO);
 
 /* Inicia a leitura e referencia o ADC com a tensao interna (1,1 para o MCU usado) */
-void IniciaLeituraTemperatura()
+void InitTemperature()
 {
   analogReference(INTERNAL);
   dht.begin();
 }
 
 /* Recebe do sensor as temperaturas lidas */
-void GetTemperatura()
+void GetTemperature()
 {
-  TempSensor = dht.readTemperature();
-  UmidSensor = dht.readHumidity ();
+  TemperatureSensor = dht.readTemperature();
+  HumiditySensor = dht.readHumidity ();
 }
 
-void SetTemperatura ()
+/*
+void SetTemperature ()
 {
   switch (TeclaPressionada ())
   {
     case Left:
-      if (setTemperatura > 0)
+      if (setTemperature > 0)
       {
-        if (setTemperatura == SET_TEMPERATURA_MIN)
+        if (setTemperature == SET_TEMPERATURE_MIN)
         {
-          setTemperatura = 1;
+          setTemperature = 1;
         }
-        setTemperatura--;
+        setTemperature--;
       }
       break;
 
@@ -43,13 +44,13 @@ void SetTemperatura ()
       break;
 
     case Right:
-      if (setTemperatura < SET_TEMPERATURA_MAX)
+      if (setTemperature < SET_TEMPERATURE_MAX)
       {
-        if (setTemperatura < SET_TEMPERATURA_MIN)
+        if (setTemperature < SET_TEMPERATURE_MIN)
         {
-          setTemperatura = SET_TEMPERATURA_MIN - 1;
+          setTemperature = SET_TEMPERATURE_MIN - 1;
         }
-        setTemperatura++;
+        setTemperature++;
       }
       break;
 
@@ -57,4 +58,4 @@ void SetTemperatura ()
       break;
   }
 
-}
+}*/

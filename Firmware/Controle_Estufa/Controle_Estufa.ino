@@ -5,22 +5,22 @@
 
 #include "Display.h"
 #include "Teclado.h"
-#include "Menu.h"
+#include "Temperature_Sensor.h"
 
 unsigned long timer = 0;
 extern void (*NavegaTela)();
 
+uint8_t keyPressed;
 void setup()
 {
   IniciaTeclado ();
-
   IniciaDisplay ();
+  InitTemperature();
 
-  IniciaLeituraTemperatura();
 }
 
 void loop()
 {
-  GetTemperatura();
+  GetTemperature();
   (*NavegaTela)();
 }

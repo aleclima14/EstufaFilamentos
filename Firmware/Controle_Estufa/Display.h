@@ -12,3 +12,7 @@ void TelaInicial (void);
 int SelectIcone(int maxMenu);
 
 void TelaAquecimento (void);
+
+void TelaAquecer (void);
+
+void TeclaTeste ();

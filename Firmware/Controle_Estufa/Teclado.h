@@ -6,14 +6,13 @@
 
 void IniciaTeclado ();
 int TeclaPressionada ();
+void LeTeclado();
 
-enum Teclas
+enum Tecla
 {
-  Left, 
-  Select,
-  Right,
-  Return,
-  nulo
+  Left   = 0x01, 
+  Select = 0x02,
+  Right  = 0x03
 };
 
 
